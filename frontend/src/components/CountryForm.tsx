@@ -14,15 +14,18 @@ export default function CountryForm() {
     const [emoji, setEmoji] = useState("");
     const [code, setCode] = useState("");
     const [continentId, setContinentId] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
-    const [addCountry] = useMutation(mutationAddCountry, {
-        refetchQueries: [queryCountries]
+    const [addCountry, { loading: mutationLoading, error: mutationError }] = useMutation(mutationAddCountry, {
+        refetchQueries: [queryCountries],
+        onError: (error) => setErrorMessage(error.message)
     });
 
-    const { data } = useQuery(queryContinents);
+    const { data, loading, error } = useQuery(queryContinents);
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if (mutationLoading) return;
         try {
             const response = await addCountry({
                 variables: {
@@ -34,13 +37,22 @@ export default function CountryForm() {
                     }
                 }
             });
+            setName("");
+            setEmoji("");
+            setCode("");
+            setContinentId("");
         } catch (err) {
-            console.error('Error adding country:', err);
+            const error = err as Error;
+            console.error('Error adding country:', error);
+            setErrorMessage('Failed to add country: ' + error.message);
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="countryForm">
+            {loading && <p>Loading continents...</p>}
+            {error && <p>Error loading continents: {error.message}</p>}
+            {errorMessage && <p className="error">{errorMessage}</p>}
             <div className="inputContainer">
                 <div>
                     <label htmlFor="name">Name</label>
@@ -81,7 +93,7 @@ export default function CountryForm() {
                     </select>
                 </div>
             </div>
-            <button type="submit">Add</button>
+            <button type="submit" disabled={mutationLoading}>Add</button>
         </form>
     );
 }
