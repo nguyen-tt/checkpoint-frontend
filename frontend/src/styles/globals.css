@@ -13,3 +13,100 @@ body {
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background-color: #f5f5f5;
 }
+
+.header {
+  background-color: #F7126B;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.countryForm {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+  max-width: fit-content;
+  margin-top: 2rem;
+  input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #F7126B;
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.countriesList {
+  display: flex;
+  flex-wrap: wrap;
+  a {
+    text-decoration: none;
+    color: #333;
+  }
+  button {
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.countryCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  p {
+    margin: 0;
+  }
+  .emoji {
+    font-size: 5rem;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .countryForm {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    .inputContainer {
+      flex-direction: row;
+    }
+  }
+}
